@@ -1,0 +1,19 @@
+services:
+  server:
+    build: ./server
+    ports: 
+      - 5555:5000
+    command: sh -c "CHOKIDAR_USEPOLLING=true npm run dev"
+    volumes: 
+      - ./server/src/:/app/src/
+  mongodb:
+    image: mongo
+    volumes: 
+      - ./data:/data/db
+  client:
+    build: ./client
+    ports: 
+      - 5566:5173
+    command: sh -c "CHOKIDAR_USEPOLLING=true npm run dev"
+    volumes: 
+      - ./client/src/:/app/src/
